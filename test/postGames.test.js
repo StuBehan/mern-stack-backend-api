@@ -17,8 +17,8 @@ describe('POST: api/games route to create new game entry', () => {
     request(app).post('/api/games')
       .send(validData)
       .then((response) => {
-        expect(response.statusCode).to.equal(201);
-        expect(response.body).to.include(validData);
+        expect(response.statusCode).to.equal(200);
+        expect(response.body).to.include(/Game added successfully/);
         done();
       })
       .catch((error) => done(error))
@@ -29,7 +29,7 @@ describe('POST: api/games route to create new game entry', () => {
       .send({ "developer": "testdev",
               "producer": "testprod"})
       .then((response) => {
-        expect(response.statusCode).to.equal(500);
+        expect(response.statusCode).to.equal(400);
         expect(response.body).to.be.an('object');
         done();
       })

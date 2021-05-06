@@ -9,11 +9,10 @@ let testSetup = () => {
   })
   
   beforeEach((done) => {
-    const collectionName = 'gamesCollection';
-    mongoose.connection.db.listCollections({ name: "gamesCollection" })
+    mongoose.connection.db.listCollections({ name: "games" })
       .next((error, collection) => {
         if(collection){
-          mongoose.connection.db.dropCollection("gamesCollection")
+          mongoose.connection.db.dropCollection("games")
           .then(() => done())
           .catch((error) => done(error))
           }
