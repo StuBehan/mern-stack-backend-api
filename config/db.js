@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const db = config.get('mongoURI');
+const dbDev = config.get('mongoDevURI');
+const dbTest = config.get('mongoTestURI');
 
 const dbconnect = async () => {
   try {
     await mongoose.connect(
-      db,
+      process.env.NODE_ENV === 'test' ? dbTest : dbDev,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -13,6 +14,7 @@ const dbconnect = async () => {
     );
 
     console.log('MongoDB is Connected...');
+    console.log(process.env.NODE_ENV)
   } 
   catch (err) {
     console.error(err.message);
