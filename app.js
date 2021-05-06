@@ -1,11 +1,29 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const connection = require('./config/db');
+var cors = require('cors');
+
+// routes
+const games = require('./routes/api/games');
 
 const app = express();
 
-connectDB();
+// Connect Database
+connection.dbconnect();
+
+// cors
+app.use(cors({ origin: true, credentials: true }));
+
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 app.get('/', (req, res) => res.send('Hello world!'));
+
+
+// use routes
+app.use('/api/games', games);
 
 const port = process.env.PORT || 8082;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+module.exports = app;

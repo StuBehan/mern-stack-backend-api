@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI');
 
-const connectDB = async () => {
+const dbconnect = async () => {
   try {
     await mongoose.connect(
       db,
@@ -13,10 +13,15 @@ const connectDB = async () => {
     );
 
     console.log('MongoDB is Connected...');
-  } catch (err) {
+  } 
+  catch (err) {
     console.error(err.message);
     process.exit(1);
   }
 };
 
-module.exports = connectDB;
+const dbclose = () => {
+  mongoose.disconnect();
+}
+
+module.exports = { dbconnect, dbclose };
