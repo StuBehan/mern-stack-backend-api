@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const dbDev = config.get('mongoDevURI');
-const dbTest = config.get('mongoTestURI');
+const db = config.get('mongoURI');
 
 const dbconnect = async () => {
   try {
     await mongoose.connect(
-      process.env.NODE_ENV === 'test' ? dbTest : dbDev,
+      db,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -14,23 +13,27 @@ const dbconnect = async () => {
     );
 
     console.log('MongoDB is Connected...');
-    console.log(process.env.NODE_ENV)
+    console.log('DB connection env is:', process.env.NODE_ENV)
   } 
-  catch (err) {
-    console.error(err.message);
+  catch (error) {
+    console.error(error.message);
     process.exit(1);
   }
 };
+
+const dbconnection = () => {
+  return mongoose.connection.db
+}
 
 const dbclose = async () => {
   try {
     await mongoose.disconnect()
     console.log('MongoDB is Disconnected...')
   } 
-  catch (err) {
-    console.error(err.message);
+  catch (error) {
+    console.error(error.message);
     process.exit(1);
   }
 }
 
-module.exports = { dbconnect, dbclose };
+module.exports = { dbconnect, dbclose, dbconnection };

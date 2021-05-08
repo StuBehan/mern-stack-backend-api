@@ -6,7 +6,7 @@ const app = require('../app')
 describe('POST: api/games route to create new game entry', () => {
   testSetup();
 
-  it('valid data', (done) => {
+  it('valid data', async () => {
     let validData = { "title": "test",
                       "developer": "testdev",
                       "producer": "testprod",
@@ -14,25 +14,23 @@ describe('POST: api/games route to create new game entry', () => {
                       "operatingSystem": "testos",
                       "dateReleased": "2021-01-01"
                     }
-    request(app).post('/api/games')
-      .send(validData)
-      .then((response) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.body).to.include(/Game added successfully/);
-        done();
-      })
-      .catch((error) => done(error))
+    await request(app).post('/api/games')
+    .send(validData)
+    .then((response) => {
+      expect(response.statusCode).to.equal(200);
+      expect(response.body).to.include( { message: 'Game added successfully' } );
+    })
+    .catch((error) => console.log(error))
   })
 
-  it('invalid data', (done) => {
-    request(app).post('/api/games')
-      .send({ "developer": "testdev",
-              "producer": "testprod"})
-      .then((response) => {
-        expect(response.statusCode).to.equal(400);
-        expect(response.body).to.be.an('object');
-        done();
-      })
-      .catch((error) => done(error));
+  it('invalid data', async () => {
+    await request(app).post('/api/games')
+    .send({ "developer": "testdev",
+            "producer": "testprod"})
+    .then((response) => {
+      expect(response.statusCode).to.equal(400);
+      expect(response.body).to.include( { message: 'Unable to add this game' } );
+    })
+    .catch((error) => done(error));
   })
 })

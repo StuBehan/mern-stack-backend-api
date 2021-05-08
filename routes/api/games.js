@@ -3,54 +3,39 @@ const router = express.Router();
 
 const Game = require('../../models/game');
 
-// @route GET api/games/test
-// @description tests games route
-// @access Public
-router.get('/test', (req, res) => res.send('game route testing'));
-
-// @route GET api/games
-// @description Get all games
-// @access Public
-router.get('/', (req, res) => {
+// route GET api/games
+router.get('/', (request, response) => {
   Game.find()
-    .then(games => res.json(games))
-    .catch(error => res.status(404).json({ nogamesfound: 'No Games found' }));
+    .then(games => response.json(games))
+    .catch(error => response.status(404).json({ message: 'No Games found', error: error }));
 });
 
-// @route GET api/games
-// @description Get individual game by :id
-// @access Public
-router.get('/:id', (req, res) => {
-  Game.findById(req.params.id)
-    .then(game => res.json(game))
-    .catch(error => res.status(404).json({ nogamefound: 'No Game found' }));
+// route GET api/games
+router.get('/:id', (request, response) => {
+  Game.findById(request.params.id)
+    .then(game => response.json(game))
+    .catch(error => response.status(404).json({ message: 'No Game found', error: error }));
 });
 
-// @route POST api/games
-// @description Add game
-// @access Public
-router.post('/', (req, res) => {
-  Game.create(req.body)
-    .then(game => res.json({ msg: 'Game added successfully' }))
-    .catch(error => res.status(400).json({ error: 'Unable to add this game' }));
+// route POST api/games
+router.post('/', (request, response) => {
+  Game.create(request.body)
+    .then(game => response.json({ message: 'Game added successfully', game: game }))
+    .catch(error => response.status(400).json({ message: 'Unable to add this game', error: error }));
 });
 
-// @route PUT api/games/:id
-// @description Update game
-// @access Public
-router.put('/:id', (req, res) => {
-  Game.findByIdAndUpdate(req.params.id, req.body)
-    .then(game => res.json({ msg: 'Updated Successfully' }))
-    .catch(error => res.status(400).json({ error: 'Unable to update the database' }));
+// route PUT api/games/:id
+router.put('/:id', (request, response) => {
+  Game.findByIdAndUpdate(request.params.id, request.body)
+    .then(game => response.json({ msg: 'Updated Successfully', game: game }))
+    .catch(error => response.status(400).json({ error: 'Unable to update the database', error: error }));
 });
 
-// @route DELETE api/games/:id
-// @description Delete game by :id
-// @access Public
-router.delete('/:id', (req, res) => {
-  Game.findByIdAndRemove(req.params.id, req.body)
-    .then(game => res.json({ message: 'Game deleted successfully' }))
-    .catch(error => res.status(404).json({ error: 'No such Game'}));
+// route DELETE api/games/:id
+router.delete('/:id', (request, response) => {
+  Game.findByIdAndRemove(request.params.id, request.body)
+    .then(game => response.json({ message: 'Game deleted successfully', game: game }))
+    .catch(error => response.status(404).json({ error: 'No such Game', error: error}));
 });
 
 module.exports = router;

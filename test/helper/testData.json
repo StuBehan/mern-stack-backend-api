@@ -1,0 +1,28 @@
+{
+  "gamesData": [
+    { 
+      "title": "Half-Life",
+      "developer": "Valve, Gearbox Software",
+      "producer": "Sierra Entertainment",
+      "genre": "First-person Shooter",
+      "operatingSystem": "Microsoft Windows, Linux, macOS",
+      "dateReleased": "1998-11-19"
+    },
+    { 
+      "title": "Homeworld",
+      "developer": "Relic Entertainment",
+      "producer": "Sierra Entertainment",
+      "genre": "Real-time strategy, Space simulation",
+      "operatingSystem": "Microsoft Windows",
+      "dateReleased": "1999-10-28"
+    },
+    { 
+      "title": "Icewind Dale",
+      "developer": "Black Isle Studios",
+      "producer": "Interplay Entertainment",
+      "genre": "Role-playing game",
+      "operatingSystem": "Microsoft Windows, macOS",
+      "dateReleased": "2000-06-29"
+    }
+  ]
+}

@@ -12,7 +12,10 @@ const games = require('./routes/api/games');
 const app = express();
 
 // Connect Database
-connection.dbconnect();
+if (process.env.NODE_ENV !== 'test') {
+  connection.dbconnect();
+}
+
 
 // cors
 app.use(cors({ origin: true, credentials: true }));

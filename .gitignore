@@ -1,5 +1,4 @@
 node_modules/
-
-config/default.json
-
+config/test.json
+config/dev.json
 .env
