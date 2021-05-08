@@ -3,6 +3,12 @@ const request = require('supertest');
 const app = require('../../app')
 const testData = require('./testData.json')
 
+let generateId = async () => {
+  await request(app).get('/api/games').then(response => {
+    return response.body[0]._id
+  })
+}
+
 let testSetup = () => {
 
   before( async () => {
@@ -11,8 +17,8 @@ let testSetup = () => {
   
   beforeEach( async () => {
     for (let i = 0; i < testData.gamesData.length; i ++) {
-      await request(app).post('/api/games').send(testData.gamesData[i]);
-    }
+      await request(app).post('/api/games').send(testData.gamesData[i])
+      }
   })
   
   afterEach((done) => {
@@ -34,4 +40,4 @@ let testSetup = () => {
   })
 }
 
-module.exports = testSetup;
+module.exports = { testSetup, generateId };

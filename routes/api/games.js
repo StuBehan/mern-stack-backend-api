@@ -6,14 +6,26 @@ const Game = require('../../models/game');
 // route GET api/games
 router.get('/', (request, response) => {
   Game.find()
-    .then(games => response.json(games))
+    .then(games => {
+      if (Object.keys(games).length) {
+        response.json(games)
+      } else {
+        response.json({ games, message: 'No Games found' })
+      }
+    }) 
     .catch(error => response.status(404).json({ message: 'No Games found', error: error }));
 });
 
 // route GET api/games
 router.get('/:id', (request, response) => {
   Game.findById(request.params.id)
-    .then(game => response.json(game))
+    .then(game => {
+      if (Object.keys(game).length) {
+        response.json(game)
+      } else {
+        response.json({ game, message: 'No Games found' })
+      }
+    }) 
     .catch(error => response.status(404).json({ message: 'No Game found', error: error }));
 });
 
