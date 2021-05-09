@@ -21,6 +21,9 @@ const GameSchema = new mongoose.Schema({
   dateReleased: {
     type: Date
   },
+  coverImage: {
+      type: String
+    },
   dateAdded: {
     type: Date,
     default: Date.now
