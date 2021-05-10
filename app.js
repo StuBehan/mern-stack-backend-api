@@ -5,10 +5,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Pull in express.js
 const express = require('express');
+const app = express();
 
 // Pull in the db connection
 const connection = require('./config/db');
-const app = express();
 
 // Pull in cors
 var cors = require('cors');
